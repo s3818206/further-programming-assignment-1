@@ -3,7 +3,9 @@ import java.util.Date;
 import java.util.List;
 /**
  * @author <Pham Hoang Duong - S3818206>
+ * @version 1.0
  */
+
 public class Claim {
     private String id;
     private Date claimDate;
@@ -15,7 +17,19 @@ public class Claim {
     private String status;
     private String receiverBankingInfo;
 
-    Claim(String id, Date claimDate, Dependent insuredPerson, String cardNumber, Date examDate, List<String> documents, float claimAmount, String status, String receiverBankingInfo){
+    Claim (){
+        this.id = "";
+        this.claimDate = new Date();
+        this.insuredPerson = new Dependent();
+        this.cardNumber = "";
+        this.examDate = new Date();
+        this.documents = null;
+        this.claimAmount = 0;
+        this.status = "";
+        this.receiverBankingInfo = "";
+    }
+
+    Claim (String id, Date claimDate, Dependent insuredPerson, String cardNumber, Date examDate, List<String> documents, float claimAmount, String status, String receiverBankingInfo){
         this.id = id;
         this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
@@ -26,6 +40,7 @@ public class Claim {
         this.status = status;
         this.receiverBankingInfo = receiverBankingInfo;
     }
+
     public String getId() { return this.id;}
     public void setId(String id){ this.id = id;}
     public Date getDate() {return this.claimDate;}

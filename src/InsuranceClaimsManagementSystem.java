@@ -16,8 +16,9 @@ public class InsuranceClaimsManagementSystem {
         System.out.println("Welcome to the Insurance Claims Management System!");
         while(isRunning){
             this.displayMainMenu();
+
         }
-    }
+    }`
 
     private void displayMainMenu() {
         System.out.println("\nMain Menu:");
