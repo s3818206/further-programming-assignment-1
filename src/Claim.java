@@ -41,20 +41,63 @@ public class Claim {
         this.receiverBankingInfo = receiverBankingInfo;
     }
 
-    public String getId() { return this.id;}
-    public void setId(String id){ this.id = id;}
+    public String getId() { 
+        return this.id;
+    }
+
+    public void setId(String id){ 
+        this.id = id;
+    }
+    
     public Date getDate() {return this.claimDate;}
+    
     public void setDate(Date claimDate){ this.claimDate = claimDate;}
-    public Dependent getInsuredPerson() { return this.insuredPerson; }
-    public void setInsuredPerson(Dependent insuredPerson) { this.insuredPerson = insuredPerson; }
-    public String getCardNumber() { return cardNumber; }
-    public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
-    public Date getExamDate() { return examDate;}
-    public void setExamDate(Date examDate) { this.examDate = examDate; }
-    public float getClaimAmount() { return claimAmount; }
-    public void setClaimAmount(float claimAmount) { this.claimAmount = claimAmount; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-    public String getReceiverBankingInfo() { return receiverBankingInfo; }
-    public void setReceiverBankingInfo(String receiverBankingInfo) { this.receiverBankingInfo = receiverBankingInfo; }
+    
+    public Dependent getInsuredPerson() { 
+        return this.insuredPerson; 
+    }
+    
+    public void setInsuredPerson(Dependent insuredPerson) { 
+        this.insuredPerson = insuredPerson; 
+    }
+    
+    public String getCardNumber() { 
+        return cardNumber; 
+    }
+    
+    public void setCardNumber(String cardNumber) { 
+        this.cardNumber = cardNumber; 
+    }
+    
+    public Date getExamDate() { 
+        return examDate;
+    }
+    
+    public void setExamDate(Date examDate) { 
+        this.examDate = examDate; 
+    }
+
+    public float getClaimAmount() { 
+        return claimAmount; 
+    }
+
+    public void setClaimAmount(float claimAmount) { 
+        this.claimAmount = claimAmount; 
+    }
+
+    public String getStatus() { 
+        return status; 
+    }
+
+    public void setStatus(String status) { 
+        this.status = status; 
+    }
+
+    public String getReceiverBankingInfo() { 
+        return receiverBankingInfo; 
+    }
+    
+    public void setReceiverBankingInfo(String receiverBankingInfo) { 
+        this.receiverBankingInfo = receiverBankingInfo; 
+    }
 }
