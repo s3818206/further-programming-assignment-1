@@ -1,13 +1,13 @@
 package src;
-import java.util.List;
+import java.util.ArrayList;
 /**
  * @author <Pham Hoang Duong - S3818206>
  * @version 1.0
  */
 public interface ClaimProcessManager {
     void addClaim(Claim claim);
-    void updateClaim(Claim claim);
+    void updateClaim(String claimId, Claim claim);
     void deleteClaim(String claimId);
     Claim getOne(String claimId);
-    List<Claim> getAll();
+    ArrayList<Claim> getAll();
 }

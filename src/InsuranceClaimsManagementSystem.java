@@ -16,7 +16,7 @@ public class InsuranceClaimsManagementSystem {
     private ArrayList<Claim> claimList;
     private ArrayList<InsuranceCard> insuranceCardList;
     private ArrayList<Dependent> dependentList;
-    private ArrayList<PolicyHolder> policyHolderList;
+    private ArrayList<PolicyOwner> policyHolderList;
 
     /**
      * Constructs a new InsuranceClaimsManagementSystem.
@@ -71,7 +71,10 @@ public class InsuranceClaimsManagementSystem {
      */
     public void start() {
         boolean isRunning = true;
-        System.out.println("Welcome to the Insurance Claims Management System!");
+        System.out.println("\n==================================================");
+        System.out.println("||   Welcome to the Insurance Claims Management System!   ||");
+        System.out.println("==================================================\n");
+
         while(isRunning){
             this.displayMainMenu();
             // Add code here to handle the user's menu choice
