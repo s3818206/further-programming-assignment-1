@@ -1,6 +1,5 @@
 package src;
 import java.util.Date;
-import java.util.List;
 import java.util.ArrayList;
 /**
  * @author <Pham Hoang Duong - S3818206>
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 public class Claim {
     private String id;
     private Date claimDate;
-    private Dependent insuredPerson;
+    private String insuredPerson;
     private String cardNumber;
     private Date examDate;
     private ArrayList<String> documents;
@@ -21,7 +20,7 @@ public class Claim {
     Claim (){
         this.id = "";
         this.claimDate = new Date();
-        this.insuredPerson = new Dependent();
+        this.insuredPerson = "";
         this.cardNumber = "";
         this.examDate = new Date();
         this.documents = null;
@@ -30,7 +29,7 @@ public class Claim {
         this.receiverBankingInfo = "";
     }
 
-    Claim (String id, Date claimDate, Dependent insuredPerson, String cardNumber, Date examDate, ArrayList<String> documents, float claimAmount, String status, String receiverBankingInfo){
+    Claim (String id, Date claimDate, String insuredPerson, String cardNumber, Date examDate, ArrayList<String> documents, float claimAmount, String status, String receiverBankingInfo){
         this.id = id;
         this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
@@ -50,16 +49,20 @@ public class Claim {
         this.id = id;
     }
     
-    public Date getDate() {return this.claimDate;}
+    public Date getDate() {
+        return this.claimDate;
+    }
     
-    public void setDate(Date claimDate){ this.claimDate = claimDate;}
+    public void setDate(Date claimDate){ 
+        this.claimDate = claimDate;
+    }
     
-    public Dependent getInsuredPerson() { 
+    public String getInsuredPerson() { 
         return this.insuredPerson; 
     }
     
-    public void setInsuredPerson(Dependent insuredPerson) { 
-        this.insuredPerson = insuredPerson; 
+    public void setInsuredPerson(String insuredPerson) { 
+        this.insuredPerson = insuredPerson;
     }
     
     public String getCardNumber() { 

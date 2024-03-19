@@ -56,7 +56,6 @@ public class InsuranceClaimsManagementSystem {
     }
 
     public Claim createNewClaim(){
-       this.scanner = new Scanner(System.in);
         System.out.println("You chose to add a new claim.");
         System.out.println("Please enter the following details:");
         System.out.print("Claim ID: ");
@@ -95,7 +94,7 @@ public class InsuranceClaimsManagementSystem {
         String receiverBankingInfo = scanner.next();
         // Assuming the documents list is empty for a new claim
         ArrayList<String> documents = new ArrayList<String>();
-        Claim newClaim = new Claim(claimId, claimDate, insuredPerson, cardNumber, examDate, documents, claimAmount, status, receiverBankingInfo);
+        Claim newClaim = new Claim();
         scanner.close();
         return newClaim;
     }
@@ -104,13 +103,8 @@ public class InsuranceClaimsManagementSystem {
 //        this.scanner = new Scanner(System.in);
 //        System.out.println("You chose to add a new policy holder.");
 //        System.out.println("Please enter the following details:");
-//        System.out.print("Policy Holder ID: ");
-//        String id = scanner.next();
-//        System.out.print("Full Name: ");
-//        String fullName = scanner.next();
-//        System.out.print("Insurance Card: ");
-//        InsuranceCard insuranceCard = createNewInsuranceCard();
 //        scanner.close();
+        // PolicyHolder policyHolder= new PolicyHolder();
         return new PolicyHolder();
     }
 
