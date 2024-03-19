@@ -3,6 +3,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
 
 /**
  * This class represents the main entry point for the Insurance Claims Management System.
@@ -13,67 +18,13 @@ import java.io.FileNotFoundException;
  */
 public class InsuranceClaimsManagementSystem {
     private Scanner scanner;
-    private ArrayList<Claim> claimList;
-    private ArrayList<InsuranceCard> insuranceCardList;
-    private ArrayList<Dependent> dependentList;
-    private ArrayList<PolicyOwner> policyHolderList;
 
-    /**
-     * Constructs a new InsuranceClaimsManagementSystem.
-     * Initializes the scanner and the lists for claims, insurance cards, dependents, and policy holders.
-     */
-    public InsuranceClaimsManagementSystem() {
-        this.scanner = new Scanner(System.in);
-        // Initialize the lists here
-        File claimFile = new File("./../data/claims.txt");
-        File insuranceCardFile = new File("./../data/insuranceCards.txt");
-        File dependentFile = new File("./../data/dependents.txt");
-        File policyHolderFile = new File("./../data/policyHolders.txt");
-
-        try {
-            Scanner claimScanner = new Scanner(claimFile);
-            Scanner insuranceCardScanner = new Scanner(insuranceCardFile);
-            Scanner dependentScanner = new Scanner(dependentFile);
-            Scanner policyHolderScanner = new Scanner(policyHolderFile);
-
-            while (claimScanner.hasNextLine()) {
-                String data = claimScanner.nextLine();
-                
-            }
-            claimScanner.close();
-
-            while (insuranceCardScanner.hasNextLine()) {
-                String data = insuranceCardScanner.nextLine();
-                
-            }
-            insuranceCardScanner.close();
-
-            while (dependentScanner.hasNextLine()) {
-                String data = dependentScanner.nextLine();
-
-            }
-            dependentScanner.close();
-
-            while (policyHolderScanner.hasNextLine()) {
-                String data = policyHolderScanner.nextLine();
-
-            }
-            policyHolderScanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred while reading the file.");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Starts the Insurance Claims Management System.
-     * Displays a welcome message and the main menu in a loop until the user chooses to exit.
-     */
-    public void start() {
+    public void run(){
         boolean isRunning = true;
+
         System.out.println("\n============================================================");
         System.out.println("||   Welcome to the Insurance Claims Management System!   ||");
-        System.out.println("============================================================\n");
+        System.out.println("============================================================");
 
         // this.displayMainMenu();
         System.out.println("\nMain Menu:");
@@ -89,28 +40,7 @@ public class InsuranceClaimsManagementSystem {
         switch(choice) {
             case 1:
                 // Add code here to add a new claim
-                System.out.println("You chose to add a new claim.");
-                System.out.println("Please enter the following details:");
-                System.out.print("Claim ID: ");
-                String claimId = scanner.next();
-                System.out.print("Date of accident: ");
-                String dateOfAccident = scanner.next();
-                System.out.print("Location of accident: ");
-                String locationOfAccident = scanner.next();
-                System.out.print("Description of accident: ");
-                String descriptionOfAccident = scanner.next();
-                System.out.print("Claimant's ID: ");
-                String claimantId = scanner.next();
-                System.out.print("Policy holder's ID: ");
-                String policyHolderId = scanner.next();
-                System.out.print("Insurance card ID: ");
-                String insuranceCardId = scanner.next();
-                System.out.print("Amount claimed: ");
-                double amountClaimed = scanner.nextDouble();
-                System.out.print("Status: ");
-                String status = scanner.next();
-                Claim newClaim = new Claim(claimId, dateOfAccident, locationOfAccident, descriptionOfAccident, claimantId, policyHolderId, insuranceCardId, amountClaimed, status);
-                claimList.add(newClaim);
+                createNewClaim();
                 break;
             case 2:
                 // Add code here to update an existing claim
@@ -123,5 +53,103 @@ public class InsuranceClaimsManagementSystem {
             default:
                 System.out.println("Invalid choice. Please enter a number between 1 and 3.");
         }
+    }
+
+    public Claim createNewClaim(){
+       this.scanner = new Scanner(System.in);
+        System.out.println("You chose to add a new claim.");
+        System.out.println("Please enter the following details:");
+        System.out.print("Claim ID: ");
+        String claimId = scanner.next();
+        System.out.print("Claim Date: ");
+        String claimDateStr = scanner.next();
+        Date claimDate = null;
+        try {
+            // Assuming the date is in the format "dd-MM-yyyy"
+            claimDate = new SimpleDateFormat("dd-MM-yyyy").parse(claimDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.print("Insured Person's ID: ");
+        String insuredPersonId = scanner.next();
+        // Assuming you have a method to get a Dependent by ID
+        // Dependent insuredPerson = getDependentById(insuredPersonId);
+        // For now, let's create a new Dependent object
+        Dependent insuredPerson = new Dependent();
+        System.out.print("Card Number: ");
+        String cardNumber = scanner.next();
+        System.out.print("Exam Date: ");
+        String examDateStr = scanner.next();
+        Date examDate = null;
+        try {
+            // Assuming the date is in the format "dd-MM-yyyy"
+            examDate = new SimpleDateFormat("dd-MM-yyyy").parse(examDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.print("Claim Amount: ");
+        float claimAmount = scanner.nextFloat();
+        System.out.print("Status: ");
+        String status = scanner.next();
+        System.out.print("Receiver Banking Info: ");
+        String receiverBankingInfo = scanner.next();
+        // Assuming the documents list is empty for a new claim
+        ArrayList<String> documents = new ArrayList<String>();
+        Claim newClaim = new Claim(claimId, claimDate, insuredPerson, cardNumber, examDate, documents, claimAmount, status, receiverBankingInfo);
+        scanner.close();
+        return newClaim;
+    }
+
+    public PolicyHolder createNewPolicyHolder(){
+//        this.scanner = new Scanner(System.in);
+//        System.out.println("You chose to add a new policy holder.");
+//        System.out.println("Please enter the following details:");
+//        System.out.print("Policy Holder ID: ");
+//        String id = scanner.next();
+//        System.out.print("Full Name: ");
+//        String fullName = scanner.next();
+//        System.out.print("Insurance Card: ");
+//        InsuranceCard insuranceCard = createNewInsuranceCard();
+//        scanner.close();
+        return new PolicyHolder();
+    }
+
+    public Dependent createNewDependent(){
+//        this.scanner = new Scanner(System.in);
+//        System.out.println("You chose to add a new dependent.");
+//        System.out.println("Please enter the following details:");
+//        System.out.print("Dependent ID: ");
+//        String id = scanner.next();
+//        System.out.print("Full Name: ");
+//        String fullName = scanner.next();
+//        System.out.print("Insurance Card: ");
+//        InsuranceCard insuranceCard = createNewInsuranceCard();
+//        Dependent newDependent = new Dependent(id, fullName, insuranceCard);
+//        scanner.close();
+        return new Dependent();
+    }
+
+    public InsuranceCard createNewInsuranceCard(){
+//        this.scanner = new Scanner(System.in);
+//        System.out.println("You chose to add a new insurance card.");
+//        System.out.println("Please enter the following details:");
+//        System.out.print("Card Number: ");
+//        String cardNumber = scanner.next();
+//        System.out.print("Card Holder: ");
+//        String cardHolder = scanner.next();
+//        System.out.print("Policy Owner: ");
+//        String policyOwner = scanner.next();
+//        System.out.print("Expiration Date: ");
+//        String expirationDateStr = scanner.next();
+//        Date expirationDate = null;
+//        try {
+//            // Assuming the date is in the format "dd-MM-yyyy"
+//            expirationDate = new SimpleDateFormat("dd-MM-yyyy").parse(expirationDateStr);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        InsuranceCard newInsuranceCard = new InsuranceCard(cardNumber, cardHolder, policyOwner, expirationDate);
+//        scanner.close();
+        return new InsuranceCard();
     }
 } 

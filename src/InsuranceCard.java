@@ -6,30 +6,30 @@ import java.util.Date;
  */
 public class InsuranceCard {
     private String cardNumber;
-    private Dependent cardHolder;
-    private PolicyOwner policyOwner;
+    private String  cardHolderName;
+    private String policyOwnerName;
     private Date expirationDate;
 
     InsuranceCard (){
         this.cardNumber = "";
-        this.cardHolder = new Dependent();
-        this.policyOwner = new PolicyOwner();
+        this.cardHolderName = "";
+        this.policyOwnerName = "";
         this.expirationDate = new Date();
     }
 
-    InsuranceCard (String cardNumber, Dependent cardHolder, PolicyOwner policyOwner, Date expirationDate){
+    InsuranceCard (String cardNumber, String cardHolder, String policyOwner, Date expirationDate){
         this.cardNumber = cardNumber;
-        this.cardHolder = cardHolder;
-        this.policyOwner = policyOwner;
+        this.cardHolderName = cardHolder;
+        this.policyOwnerName = policyOwner;
         this.expirationDate = expirationDate;
     }
 
     public String getCardNumber() { return cardNumber; }
     public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
-    public Dependent getCardHolder() { return cardHolder; }
-    public void setCardHolder(Dependent cardHolder) { this.cardHolder = cardHolder; }
-    public PolicyOwner getPolicyOwner() { return policyOwner; }
-    public void setPolicyOwner(PolicyOwner policyOwner) { this.policyOwner = policyOwner; }
+    public String getCardHolderName() { return this.cardHolderName; }
+    public void setCardHolderName(String cardHolder) { this.cardHolderName = cardHolder; }
+    public String getPolicyOwnerName() { return this.policyOwnerName; }
+    public void setPolicyOwnerName(String policyOwner) { this.policyOwnerName = policyOwner; }
     public Date getExpirationDate() { return expirationDate; }
     public void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate; }
 }

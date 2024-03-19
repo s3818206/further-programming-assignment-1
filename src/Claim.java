@@ -1,6 +1,7 @@
 package src;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 /**
  * @author <Pham Hoang Duong - S3818206>
  * @version 1.0
@@ -12,7 +13,7 @@ public class Claim {
     private Dependent insuredPerson;
     private String cardNumber;
     private Date examDate;
-    private List<String> documents;
+    private ArrayList<String> documents;
     private float claimAmount;
     private String status;
     private String receiverBankingInfo;
@@ -29,7 +30,7 @@ public class Claim {
         this.receiverBankingInfo = "";
     }
 
-    Claim (String id, Date claimDate, Dependent insuredPerson, String cardNumber, Date examDate, List<String> documents, float claimAmount, String status, String receiverBankingInfo){
+    Claim (String id, Date claimDate, Dependent insuredPerson, String cardNumber, Date examDate, ArrayList<String> documents, float claimAmount, String status, String receiverBankingInfo){
         this.id = id;
         this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
@@ -75,6 +76,10 @@ public class Claim {
     
     public void setExamDate(Date examDate) { 
         this.examDate = examDate; 
+    }
+
+    public void addDocument(){
+        this.documents.add("Document");
     }
 
     public float getClaimAmount() { 

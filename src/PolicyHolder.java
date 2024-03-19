@@ -5,15 +5,15 @@ import java.util.ArrayList;
  * @author <Pham Hoang Duong - S3818206>
  * @version 1.0
  */
-public class PolicyOwner extends Customer{
+public class PolicyHolder extends Customer{
     private ArrayList<Dependent> dependents;
 
-    PolicyOwner (){
+    PolicyHolder (){
         super();
         this.dependents = null;
     }
 
-    PolicyOwner(String id, String fullName, InsuranceCard insuranceCard, ArrayList<Claim> claims, ArrayList<Dependent> dependents){
+    PolicyHolder(String id, String fullName, InsuranceCard insuranceCard, ArrayList<Claim> claims, ArrayList<Dependent> dependents){
         super(id, fullName, insuranceCard, claims);
         this.dependents = dependents;
     }
