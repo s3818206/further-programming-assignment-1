@@ -6,7 +6,7 @@ import java.util.Date;
  * @version 1.0
  */
 public class InsuranceCard {
-    private String cardNumber;
+    private String cardNumber; // 10-digit card number
     private String cardHolderName;
     private String policyOwnerName;
     private Date expirationDate;
@@ -19,6 +19,9 @@ public class InsuranceCard {
     }
 
     InsuranceCard (String cardNumber, String cardHolder, String policyOwner, Date expirationDate){
+        if (cardNumber.length() != 10) {
+            throw new IllegalArgumentException("Card number must be 10 digits");
+        }
         this.cardNumber = cardNumber;
         this.cardHolderName = cardHolder;
         this.policyOwnerName = policyOwner;

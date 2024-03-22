@@ -65,8 +65,8 @@ public class Claim {
         this.insuredPerson = insuredPerson;
     }
     
-    public String getCardNumber() { 
-        return cardNumber; 
+    public String getCardNumber() {
+        return cardNumber;
     }
     
     public void setCardNumber(String cardNumber) { 
