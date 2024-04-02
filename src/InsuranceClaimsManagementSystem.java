@@ -35,8 +35,14 @@ public class InsuranceClaimsManagementSystem {
         // this.displayMainMenu();
         System.out.println("\nHow can I help you today");
 
+
          while(isRunning){
-             this.displayMenu();
+             System.out.println("\nMain Menu:");
+             System.out.println("1. View my Customer Dashboard");
+             System.out.println("2. View my Insurance Dashboard");
+             System.out.println("3. Check my Claim Dashboard");
+             System.out.println("4. Exit");
+             System.out.print("Please enter your choice from 1-4: ");
              int choice = scanner.nextInt();
              switch(choice) {
                  case 1:
@@ -90,28 +96,25 @@ public class InsuranceClaimsManagementSystem {
          scanner.close();
     }
 
-    public void displayMenu(){
-        System.out.println("\nMain Menu:");
-        System.out.println("1. View my Customer Dashboard");
-        System.out.println("2. View my Insurance Dashboard");
-        System.out.println("3. Check my Claim Dashboard");
-        System.out.println("4. Exit");
-        System.out.print("Please enter your choice from 1-4: ");
-    }
-
     public static void importFile(){
         try {
             File file = new File("data/Customer.txt");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-//                String[] parts = line.split(" - ");
-//                String id = parts[0];
-//                String fullName = parts[1];
-//                String insuranceCard = parts[2];
-//                String claims = parts[3];
-                System.out.println(line);
+                String[] parts = line.split(" \\| ");
 
+                String id = parts[0].trim();
+                String fullName = parts[1].trim();
+                String insuranceCard = parts[2].trim();
+                String claims = parts[3].trim();
+                String dependents = parts[4].trim(); // This will not throw an exception now
+
+                System.out.println(id);
+                System.out.println(fullName);
+                System.out.println(insuranceCard);
+                System.out.println(claims);
+                System.out.println(dependents);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
