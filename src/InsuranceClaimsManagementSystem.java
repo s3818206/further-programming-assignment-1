@@ -49,7 +49,7 @@ public class InsuranceClaimsManagementSystem {
                      System.out.println("You chose to check the customer dashboard.");
                      System.out.println("Here is the list of current customer we are having");
 //                     this.displayCustomerList();
-                     System.out.println("Do you want to process anything (Y/N)");
+                     System.out.println("Do you want to process anything in this dashboard(Y/N)");
                      String process = scanner.next();
                      if (process.equals("Y")) {
                          System.out.println("What do you want to do?");
@@ -61,6 +61,9 @@ public class InsuranceClaimsManagementSystem {
                          switch (customerProcessChoice) {
                              case "1":
                                  System.out.println("You chose to add a new customer. Please enter the details below");
+                                 System.out.println("Please enter the customer name");
+                                 String customerName = scanner.next();
+
                                  break;
                              case "2":
                                     System.out.println("You chose to update customer information.");
@@ -76,8 +79,17 @@ public class InsuranceClaimsManagementSystem {
                                  break;
                              default:
                                  System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+                         }
+                     } else {
+                            System.out.println("Do you want to check another dashboard (Y/N)");
+                            String checkAnotherDashboard = scanner.next();
+                            if (checkAnotherDashboard.equals("N")) {
+                                isRunning = false;
+                                System.out.println("Exiting the system. Thank you!");
+                            } else if (checkAnotherDashboard.equals("Y"){
+                                continue;
                             }
-                        }
+                     }
                      break;
                  case 2:
                      System.out.println("You chose to check the insurance dashboard.");
@@ -107,14 +119,24 @@ public class InsuranceClaimsManagementSystem {
                 String id = parts[0].trim();
                 String fullName = parts[1].trim();
                 String insuranceCard = parts[2].trim();
-                String claims = parts[3].trim();
-                String dependents = parts[4].trim(); // This will not throw an exception now
+                String claims = parts[3].trim().replace(" |", "");
+                String dependents = ""; // Default value
+
+                if (parts.length >= 5) {
+                    dependents = parts[4].trim(); // This will not throw an exception now
+                    if (dependents == null || dependents.isEmpty()) {
+                        continue;
+                    }
+                }
 
                 System.out.println(id);
                 System.out.println(fullName);
                 System.out.println(insuranceCard);
                 System.out.println(claims);
-                System.out.println(dependents);
+                if (dependents != null && !dependents.isEmpty()) {
+                    System.out.println(dependents);
+                }
+
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -124,8 +146,7 @@ public class InsuranceClaimsManagementSystem {
     }
 
     public static void main(String[] args) {
-//        InsuranceClaimsManagementSystem system = new InsuranceClaimsManagementSystem();
-//        system.run();
+
         importFile();
     }
 }
