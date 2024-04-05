@@ -13,11 +13,6 @@ public class PolicyHolder extends Customer{
         this.dependents = null;
     }
 
-    PolicyHolder(String id, String fullName, InsuranceCard insuranceCard, ArrayList<Claim> claims, ArrayList<Dependent> dependents){
-        super(id, fullName, insuranceCard, claims);
-        this.dependents = dependents;
-    }
-
     public ArrayList<Dependent> getDependents() { return dependents; }
 
 

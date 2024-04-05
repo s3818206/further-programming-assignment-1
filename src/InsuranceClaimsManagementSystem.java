@@ -16,99 +16,109 @@ import java.util.Scanner;
  */
 public class InsuranceClaimsManagementSystem {
     private Scanner scanner;
-    private HashMap<String, Claim> claims;
-    private HashMap<String, PolicyHolder> policyHolders;
-    private HashMap<String, Dependent> dependents;
-    private HashMap<String, InsuranceCard> insuranceCards;
-    private ArrayList<Customer> customers;
+    private ArrayList claims;
+    private ArrayList policyHolders;
+    private ArrayList dependents;
+    private ArrayList insuranceCards;
+    private ArrayList customers;
 
-
-
+    InsuranceClaimsManagementSystem(){
+        this.importFile(); // Import data from the file to the arrayList above
+        this.scanner = new Scanner(System.in);
+    }
     public void run(){
         boolean isRunning = true;
-        this.scanner = new Scanner(System.in);
 
         System.out.println("\n============================================================");
         System.out.println("||   Welcome to the Insurance Claims Management System!   ||");
         System.out.println("============================================================");
 
-        // this.displayMainMenu();
         System.out.println("\nHow can I help you today");
 
+        while(isRunning){
+            System.out.println("\nMain Menu:");
+            System.out.println("1. Check the Customer Dashboard");
+            System.out.println("2. Check the Insurance Dashboard");
+            System.out.println("3. Check the Claim Dashboard");
+            System.out.println("4. Exit");
+            System.out.print("Please enter your choice from 1-4: ");
+            int choice = scanner.nextInt();
+            switch(choice) {
+                case 1:
+                    System.out.println("You chose to check the customer dashboard.");
+                    boolean isCustomerDashboardRunning = true;
+                    while(isCustomerDashboardRunning){
+                        System.out.println("What do you want to do?");
+                        System.out.println("1. Create a new customer");
+                        System.out.println("2. Update customer information");
+                        System.out.println("3. View the customer dashboard");
+                        System.out.println("4. Delete a customer");
+                        System.out.println("5. Go back to the main menu");
+                        System.out.print("Please enter your choice from 1-5: ");
+                        int customerDashboardChoice = scanner.nextInt();
+                        switch(customerDashboardChoice) {
+//                            Create a new customer
+                            case 1:
+                                System.out.println("You chose to add a new customer. Please enter the customer following details below");
+                                System.out.println("Please enter the customer name");
+                                String customerName = scanner.next();
+                                System.out.println("Please enter the insurance card number");
+                                String insuranceCardNumber = scanner.next();
+                                System.out.println("Please enter the insurance card holder name");
+                                String insuranceCardHolderName = scanner.next();
+                                System.out.println("Does this customer have any dependents? (Y/N)");
+                                String hasDependents = scanner.next();
+                                if(hasDependents.equals("Y")) {
+                                    System.out.println("Insert the dependent id");
+                                } else if(hasDependents.equals("N")) {
+                                    // Create a new policy holder
+                                }else {
+                                    System.out.println("Invalid input. Please enter Y or N");
+                                }
+                                break;
+//                                Update Customer Information
+                            case 2:
+                                System.out.println("You chose to update customer information.");
+                                System.out.println("Please enter the customer ID to update: ");
+                                String customerId = scanner.next();
+                                break;
+                            case 3:
+                                System.out.println("You chose to view the customer dashboard.");
+                                // Show the customer dashboard
+                                break;
+                            case 4:
+                                System.out.println("You chose to delete a customer.");
+                                System.out.println("Please enter the customer ID to update: ");
 
-         while(isRunning){
-             System.out.println("\nMain Menu:");
-             System.out.println("1. View my Customer Dashboard");
-             System.out.println("2. View my Insurance Dashboard");
-             System.out.println("3. Check my Claim Dashboard");
-             System.out.println("4. Exit");
-             System.out.print("Please enter your choice from 1-4: ");
-             int choice = scanner.nextInt();
-             switch(choice) {
-                 case 1:
-                     System.out.println("You chose to check the customer dashboard.");
-                     System.out.println("Here is the list of current customer we are having");
-//                     this.displayCustomerList();
-                     System.out.println("Do you want to process anything in this dashboard(Y/N)");
-                     String process = scanner.next();
-                     if (process.equals("Y")) {
-                         System.out.println("What do you want to do?");
-                         System.out.println("1. Add a new customer");
-                         System.out.println("2. Update customer information");
-                         System.out.println("3. Delete a customer");
-                         System.out.println("4. Exit");
-                         String customerProcessChoice = scanner.next();
-                         switch (customerProcessChoice) {
-                             case "1":
-                                 System.out.println("You chose to add a new customer. Please enter the details below");
-                                 System.out.println("Please enter the customer name");
-                                 String customerName = scanner.next();
-
-                                 break;
-                             case "2":
-                                    System.out.println("You chose to update customer information.");
-                                    System.out.println("Please enter the customer ID: ");
-                                    break;
-                             case "3":
-                                 System.out.println("You chose to delete a customer.");
-                                 System.out.println("Please enter the customer ID: ");
-
-                                 break;
-                             case "4":
-                                 System.out.println("Exiting the system. Thank you!");
-                                 break;
-                             default:
-                                 System.out.println("Invalid choice. Please enter a number between 1 and 4.");
-                         }
-                     } else {
-                            System.out.println("Do you want to check another dashboard (Y/N)");
-                            String checkAnotherDashboard = scanner.next();
-                            if (checkAnotherDashboard.equals("N")) {
-                                isRunning = false;
-                                System.out.println("Exiting the system. Thank you!");
-                            } else if (checkAnotherDashboard.equals("Y"){
-                                continue;
-                            }
-                     }
-                     break;
-                 case 2:
-                     System.out.println("You chose to check the insurance dashboard.");
-                     break;
-                 case 3:
-                     System.out.println("You chose to view all claims.");
-                     break;
-                 case 4:
-                     isRunning = false;
-                     System.out.println("Exiting the system. Thank you!");
-                     break;
-                 default:
+                                break;
+                            case 5:
+                                System.out.println("Going back to the main menu");
+                                isCustomerDashboardRunning = false;
+                                break;
+                            default:
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("You chose to check the insurance dashboard.");
+                    boolean isInsuranceDashboardRunning = true;
+                    break;
+                case 3:
+                    System.out.println("You chose to view all claims.");
+                    break;
+                case 4:
+                    isRunning = false;
+                    System.out.println("Exiting the system. Thank you!");
+                    break;
+                default:
                      System.out.println("Invalid choice. Please enter a number between 1 and 4.");
              }
          }
          scanner.close();
     }
 
-    public static void importFile(){
+    public void importFile(){
+//        Import Customer data
         try {
             File file = new File("data/Customer.txt");
             Scanner scanner = new Scanner(file);
@@ -116,26 +126,30 @@ public class InsuranceClaimsManagementSystem {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
 
-                String id = parts[0].trim();
-                String fullName = parts[1].trim();
-                String insuranceCard = parts[2].trim();
-                String claims = parts[3].trim().replace(" |", "");
-                String dependents = ""; // Default value
+                String inputId = parts[0].trim();
+                String inputFullName = parts[1].trim();
+                String inputInsuranceCard = parts[2].trim();
+                String inputClaims = parts[3].trim().replace(" |", "");
+                String inputDependents = ""; // Default value
 
                 if (parts.length >= 5) {
-                    dependents = parts[4].trim(); // This will not throw an exception now
-                    if (dependents == null || dependents.isEmpty()) {
-                        continue;
-                    }
+                    inputDependents = parts[4].trim(); // This will not throw an exception now
                 }
 
-                System.out.println(id);
-                System.out.println(fullName);
-                System.out.println(insuranceCard);
-                System.out.println(claims);
-                if (dependents != null && !dependents.isEmpty()) {
-                    System.out.println(dependents);
+                if (inputDependents != null && !inputDependents.isEmpty()) {
+
+                    PolicyHolder policyHolder = new PolicyHolder();
+                    policyHolder.setId(inputId);
+                    policyHolder.setFullName(inputFullName);
+                    policyHolders.add(policyHolder);
+                }else{
+                    Dependent dependent = new Dependent();
+                    dependents.add(dependent);
                 }
+
+                // Create a new customer object
+                // Add the customer object to the customers list
+
 
             }
             scanner.close();
@@ -145,8 +159,12 @@ public class InsuranceClaimsManagementSystem {
         }
     }
 
-    public static void main(String[] args) {
+    public void manageCustomer(){
 
-        importFile();
+    }
+
+    public void main(String[] args) {
+
+
     }
 }

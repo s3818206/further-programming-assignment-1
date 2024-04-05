@@ -14,14 +14,7 @@ public abstract class Customer implements ClaimProcessManager{
         this.id = "";
         this.fullName = "";
         this.insuranceCard = new InsuranceCard();
-        this.claims = null;
-    }
-
-    Customer(String id, String fullName, InsuranceCard insuranceCard, ArrayList<Claim> claims){
-        this.id = id;
-        this.fullName = fullName;
-        this.insuranceCard = insuranceCard;
-        this.claims = claims;
+        this.claims = new ArrayList<Claim>;
     }
 
     public String getId() { 
