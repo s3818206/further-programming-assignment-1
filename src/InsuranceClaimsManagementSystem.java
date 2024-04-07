@@ -137,18 +137,17 @@ public class InsuranceClaimsManagementSystem {
                 }
 
                 if (inputDependents != null && !inputDependents.isEmpty()) {
-
-                    PolicyHolder policyHolder = new PolicyHolder();
-                    policyHolder.setId(inputId);
-                    policyHolder.setFullName(inputFullName);
-                    policyHolders.add(policyHolder);
                 }else{
-                    Dependent dependent = new Dependent();
-                    dependents.add(dependent);
+
                 }
 
-                // Create a new customer object
-                // Add the customer object to the customers list
+                Customer customer = new Customer();
+                customer.setId(inputId);
+                customer.setFullName(inputFullName);
+                customer.setInsuranceCard(new InsuranceCard());
+//                customer.addClaim();
+
+                customers.add(customer);
 
 
             }
@@ -156,6 +155,30 @@ public class InsuranceClaimsManagementSystem {
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        }
+
+        try {
+            File file = new File("data/Claim.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+
+        }
+
+        try {
+            File file = new File("data/Insurance.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+
         }
     }
 

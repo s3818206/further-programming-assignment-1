@@ -4,17 +4,21 @@ import java.util.ArrayList;
  * @author <Pham Hoang Duong - S3818206>
  * @version 1.0
  */
-public abstract class Customer implements ClaimProcessManager{
+public class Customer implements ClaimProcessManager{
     private String id;
     private String fullName;
     private InsuranceCard insuranceCard;
     private ArrayList<Claim> claims;
+    private String role; // This is to note the role difference between Customer and PolicyHolder. Since the role of PolicyHolder and Dependent. We will use this to differentiate between them. For further update with more differences with the role, we will update the functionality later
+    private ArrayList<Customer> dependents; // This is the only difference between Customer and PolicyHolder
 
     Customer(){
         this.id = "";
         this.fullName = "";
         this.insuranceCard = new InsuranceCard();
-        this.claims = new ArrayList<Claim>;
+        this.claims = new ArrayList<Claim>();
+        this.role = "Policy Holder";
+        this.dependents = new ArrayList<Customer>();
     }
 
     public String getId() { 
@@ -44,6 +48,7 @@ public abstract class Customer implements ClaimProcessManager{
     public void addClaim(Claim claim) {
         this.claims.add(claim);
     }
+
 
     public void updateClaim(String claimId, Claim claim) {
         for (int i = 0; i < this.claims.size(); i++) {
@@ -76,4 +81,21 @@ public abstract class Customer implements ClaimProcessManager{
         return this.claims;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole(String newRole) { this.role = newRole;}
+    public void addDependent(Customer dependent) {
+        this.dependents.add(dependent);
+    }
+
+    public void deleteDependent(String dependentId) {
+        for (int i = 0; i < this.dependents.size(); i++) {
+            if (this.dependents.get(i).getId().equals(dependentId)) {
+                this.dependents.remove(i);
+                break;
+            }
+        }
+    }
 }
