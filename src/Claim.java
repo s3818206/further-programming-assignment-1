@@ -236,4 +236,8 @@ public class Claim {
     public void setReceiverBankingInfo(String receiverBankingInfo) {
         this.receiverBankingInfo = receiverBankingInfo;
     }
+
+    public Date getClaimDate(){
+        return this.claimDate;
+    }
 }

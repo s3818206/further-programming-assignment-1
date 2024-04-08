@@ -1,4 +1,5 @@
 package src;
+import java.io.PrintWriter;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,11 +7,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.PrintWriter;
 
 /**
- * This class represents the main entry point for the Insurance Claims Management System.
+ * The InsuranceClaimsManagementSystem class represents the main entry point for the Insurance Claims Management System.
  * It provides a text-based user interface for managing insurance claims.
- * 
+ *
+ * The class maintains lists of customers, insurance cards, and claims, and provides methods for managing these entities.
+ * It also provides methods for importing data from files and saving data to files.
+ *
  * @author Pham Hoang Duong - S3818206
  * @version 1.0
  */
@@ -27,6 +32,11 @@ public class InsuranceClaimsManagementSystem {
         this.customers = new ArrayList<Customer>();
         this.importFile(); // Import data from the file to the arrayList above
     }
+
+    /**
+     * The run method is the main loop of the application.
+     * It displays the main menu and handles user input.
+     */
     public void run(){
         boolean isRunning = true;
 
@@ -135,9 +145,17 @@ public class InsuranceClaimsManagementSystem {
                      System.out.println("Invalid choice. Please enter a number between 1 and 4.");
              }
          }
-         scanner.close();
+        scanner.close();
+        saveCustomersToFile();
+        saveClaimsToFile();
+        saveInsuranceCardsToFile();
+
     }
 
+    /**
+     * The importFile method imports data from files into the application.
+     * It reads data from Customer.txt, Claim.txt, and InsuranceCard.txt, and populates the customers, claims, and insuranceCards lists.
+     */
     public void importFile(){
         try {
             File file = new File("data/Customer.txt");
@@ -443,7 +461,7 @@ public class InsuranceClaimsManagementSystem {
 
         // Iterate over the customers and print each one
         for (Customer customer : customers) {
-            System.out.println(String.format("%-15s %-20s %-15s",
+            System.out.println(String.format("%-15s %-20s %-15s $-40s $-50s",
                     customer.getId(),
                     customer.getFullName(),
                     customer.getInsuranceCard().getCardNumber(),
@@ -688,5 +706,77 @@ public class InsuranceClaimsManagementSystem {
             }
         }
         System.out.println("Claim not found. Please try again.");
+    }
+
+    /**
+     * The saveCustomersToFile method saves the current state of the customers list to a file.
+     * It writes the data to Customer.txt.
+     */
+    public void saveCustomersToFile() {
+        try {
+            PrintWriter writer = new PrintWriter(new File("data/Customer.txt"));
+            for (Customer customer : customers) {
+                String customerData = String.join(" | ",
+                        customer.getId(),
+                        customer.getFullName(),
+                        customer.getInsuranceCard().getCardNumber(),
+                        customer.getAllClaimsToString(),
+                        customer.getAllDependentToString());
+                writer.println(customerData);
+            }
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred while saving customers to file.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * The saveClaimsToFile method saves the current state of the claims list to a file.
+     * It writes the data to Claim.txt.
+     */
+    public void saveClaimsToFile() {
+        try {
+            PrintWriter writer = new PrintWriter(new File("data/Claim.txt"));
+            for (Claim claim : claims) {
+                String claimData = String.join(" | ",
+                        claim.getId(),
+                        new SimpleDateFormat("dd-MM-yyyy").format(claim.getClaimDate()),
+                        claim.getCustomer().getFullName(),
+                        claim.getInsuranceCardNumber(),
+                        new SimpleDateFormat("dd-MM-yyyy").format(claim.getExamDate()),
+                        String.join(",", claim.getDocuments()),
+                        Float.toString(claim.getClaimAmount()),
+                        claim.getStatus(),
+                        claim.getReceiverBankingInfo());
+                writer.println(claimData);
+            }
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred while saving claims to file.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * The saveInsuranceCardsToFile method saves the current state of the insuranceCards list to a file.
+     * It writes the data to InsuranceCard.txt.
+     */
+    public void saveInsuranceCardsToFile() {
+        try {
+            PrintWriter writer = new PrintWriter(new File("data/InsuranceCard.txt"));
+            for (InsuranceCard insuranceCard : insuranceCards) {
+                String insuranceCardData = String.join(" | ",
+                        insuranceCard.getCardNumber(),
+                        insuranceCard.getCardHolderName().getFullName(),
+                        insuranceCard.getPolicyOwnerName(),
+                        new SimpleDateFormat("dd-MM-yyyy").format(insuranceCard.getExpirationDate()));
+                writer.println(insuranceCardData);
+            }
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred while saving insurance cards to file.");
+            e.printStackTrace();
+        }
     }
 }
