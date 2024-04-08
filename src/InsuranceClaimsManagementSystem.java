@@ -439,27 +439,70 @@ public class InsuranceClaimsManagementSystem {
 
         // Print the header
         System.out.println("\nCustomer Dashboard:");
-        System.out.println(String.format("%-15s %-15s %-15s", "Customer ID", "Customer Name", "Insurance Card Number"));
+        System.out.println(String.format("%-15s %-20s %-15s $-40s $-50s", "Customer ID", "Customer Name", "Insurance Card Number", "Claims", "Dependents"));
 
         // Iterate over the customers and print each one
         for (Customer customer : customers) {
-            System.out.println(String.format("%-15s %-15s %-15s",
+            System.out.println(String.format("%-15s %-20s %-15s",
                     customer.getId(),
                     customer.getFullName(),
-                    customer.getInsuranceCard().getCardNumber()));
+                    customer.getInsuranceCard().getCardNumber(),
+                    customer.getAllClaimsToString(),
+                    customer.getAllDependentToString()));
         }
     }
 
     private void updateCustomerDashboard(){
-        System.out.println("You chose to update the customer information.");
-        System.out.println("Please enter the customer ID to update: ");
-        String customerId = scanner.next();
+        String customerId = readStringInput("Please enter the customer ID to update");
+        for (Customer customer : customers){
+            if(customer.getId().equals(customerId)){
+                System.out.println("Please choose the criteria you want to update");
+                System.out.println("1. Full Name");
+                System.out.println("2. Insurance Card");
+                System.out.println("3. Dependents");
+
+                int choice = scanner.nextInt();
+
+                switch(choice){
+                    case 1:
+                        String fullName = readStringInput("Please enter the new full name");
+                        customer.setFullName(fullName);
+                        break;
+                    case 2:
+                        InsuranceCard insuranceCard = readValidInsuranceCard("Please enter the insurance card number");
+                        customer.setInsuranceCard(insuranceCard);
+                        break;
+                    case 3:
+                        System.out.println("Do you want to add or delete a dependent? (A/D)");
+                        String answer = scanner.next();
+                        if(answer.equals("A")){
+                            Customer dependent = readValidCustomerInput("Insert Dependent to delete here");
+                            customer.addDependent(dependent);
+                        } else if (answer.equals("D")){
+                            Customer dependent = readValidCustomerInput("Insert Dependent to delete here");
+                            customer.deleteDependent(dependent.getId());
+                        } else {
+                            System.out.println("Invalid input. Please enter A or D.");
+                        }
+                        break;
+                }
+                return;
+            }
+        }
+        System.out.println("Customer not found. Please try again.");
     }
 
     private void deleteCustomer(){
-        System.out.println("You chose to delete a customer.");
-        System.out.println("Please enter the customer ID to delete: ");
-        String customerId = scanner.next();
+        String customerId = readStringInput("Please enter the customer ID to delete");
+        for(Customer customer : customers){
+            if(customer.getId().equals(customerId)){
+                customers.remove(customer);
+                System.out.println("Customer deleted successfully.");
+                return;
+            }
+        }
+        System.out.println("Customer not found. Please try again.");
+
     }
 
     private void addNewInsurance() {
