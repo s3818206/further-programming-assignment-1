@@ -189,6 +189,10 @@ public class Claim {
      * Returns the claim amount of the claim.
      * @return A float representing the claim amount.
      */
+
+    public ArrayList<String> getDocuments() {
+        return this.documents;
+    }
     public float getClaimAmount() {
         return this.claimAmount;
     }

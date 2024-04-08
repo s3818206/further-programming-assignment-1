@@ -3,7 +3,7 @@ import java.util.Date;
 
 /**
  * This class represents an insurance card, used to identify a customer's insurance policy.
- * Each card has a 10-digit card number, the name of the card holder, the name of the policy owner, and an expiration date.
+ * Each card has a 10-digit card number, cardholder, the name of the policy owner, and an expiration date.
  * The card number must be 10 digits long.
  * The expiration date must be in the future.
  *
@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class InsuranceCard {
     private String cardNumber; // 10-digit card number
-    private String cardHolderName; // Name of the card holder
+    private Customer cardHolder; // Name of the card holder
     private String policyOwnerName; // Name of the policy owner - Could be RMIT
     private Date expirationDate; // Expiration date of the card - must in the future
 
@@ -22,9 +22,16 @@ public class InsuranceCard {
      */
     InsuranceCard (){
         this.cardNumber = "n/a";
-        this.cardHolderName = "n/a";
+//        this.cardHolder = new Customer();
         this.policyOwnerName = "n/a";
-        this.expirationDate = new Date();
+        this.expirationDate = null;
+    }
+
+    InsuranceCard(String cardNumber, Customer cardHolder, String policyOwnerName, Date expirationDate){
+        this.cardNumber = cardNumber;
+        this.cardHolder = cardHolder;
+        this.policyOwnerName = policyOwnerName;
+        this.expirationDate = expirationDate;
     }
 
     /**
@@ -53,16 +60,16 @@ public class InsuranceCard {
      * Returns the card holder's name of the insurance card.
      * @return A string representing the card holder's name.
      */
-    public String getCardHolderName() {
-        return this.cardHolderName;
+    public Customer getCardHolderName() {
+        return this.cardHolder;
     }
 
     /**
      * Sets the card holder's name of the insurance card.
      * @param cardHolder A string containing the new card holder's name.
      */
-    public void setCardHolderName(String cardHolder) {
-        this.cardHolderName = cardHolder;
+    public void setCardHolderName(Customer cardHolder) {
+        this.cardHolder = cardHolder;
     }
 
     /**

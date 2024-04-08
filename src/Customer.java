@@ -19,15 +19,25 @@ public class Customer implements ClaimProcessManager{
 
     /**
      * Constructs a new Customer object with default values.
-     * Initializes ID, full name, insurance card, claims, role, and dependents.
+     * Initializes ID, full name, claims, role, and dependents.
+     * Insurance card is set to null.
      */
     Customer(){
         this.id = "";
         this.fullName = "";
-        this.insuranceCard = new InsuranceCard();
         this.claims = new ArrayList<Claim>();
+        this.insuranceCard = null;
         this.role = "Policy Holder";
         this.dependents = new ArrayList<Customer>();
+    }
+
+    Customer(String id, String fullName, InsuranceCard insuranceCard, ArrayList<Claim> claims, String role, ArrayList<Customer> dependents){
+        this.id = id;
+        this.fullName = fullName;
+        this.insuranceCard = insuranceCard;
+        this.claims = claims;
+        this.role = role;
+        this.dependents = dependents;
     }
 
     /**

@@ -21,8 +21,11 @@ public class InsuranceClaimsManagementSystem {
     private ArrayList<Customer> customers;
 
     InsuranceClaimsManagementSystem(){
-        this.importFile(); // Import data from the file to the arrayList above
         this.scanner = new Scanner(System.in);
+        this.claims = new ArrayList<Claim>();
+        this.insuranceCards = new ArrayList<InsuranceCard>();
+        this.customers = new ArrayList<Customer>();
+        this.importFile(); // Import data from the file to the arrayList above
     }
     public void run(){
         boolean isRunning = true;
@@ -39,11 +42,12 @@ public class InsuranceClaimsManagementSystem {
             System.out.println("2. Check the Insurance Dashboard");
             System.out.println("3. Check the Claim Dashboard");
             System.out.println("4. Exit");
-            System.out.print("Please enter your choice from 1-4: ");
+            System.out.println("Please enter your choice from 1-4: ");
             int choice = scanner.nextInt();
+
             switch(choice) {
                 case 1:
-                    System.out.println("You chose to check the customer dashboard.");
+                    System.out.println("\nYou chose to check the customer dashboard.");
                     boolean isCustomerDashboardRunning = true;
                     while(isCustomerDashboardRunning){
                         this.dashboardMenu("customer");
@@ -70,7 +74,7 @@ public class InsuranceClaimsManagementSystem {
                     }
                     break;
                 case 2:
-                    System.out.println("You chose to check the insurance dashboard.");
+                    System.out.println("\nYou chose to check the insurance dashboard.");
                     boolean isInsuranceDashboardRunning = true;
                     while(isInsuranceDashboardRunning){
                         this.dashboardMenu("insurance");
@@ -97,7 +101,7 @@ public class InsuranceClaimsManagementSystem {
                     }
                     break;
                 case 3:
-                    System.out.println("You chose to check the claim dashboard");
+                    System.out.println("\nYou chose to check the claim dashboard");
                     boolean isClaimDashboardRunning = true;
                     while(isClaimDashboardRunning){
                         this.dashboardMenu("claim");
@@ -135,37 +139,37 @@ public class InsuranceClaimsManagementSystem {
     }
 
     public void importFile(){
-//        Import Customer data
         try {
             File file = new File("data/Customer.txt");
             Scanner scanner = new Scanner(file);
+            ArrayList<Customer> dependents = new ArrayList<Customer>();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
-                String inputId = parts[0].trim();
-                String inputFullName = parts[1].trim();
-                String inputInsuranceCard = parts[2].trim();
-                String inputClaims = parts[3].trim().replace(" |", "");
-                String inputDependents = ""; // Default value
 
-                if (parts.length >= 5) {
-                    inputDependents = parts[4].trim(); // This will not throw an exception now
+                String id = parts[0].trim();
+                String fullName = parts[1].trim();
+
+                InsuranceCard insuranceCard = new InsuranceCard();
+                insuranceCard.setCardNumber(parts[2].trim());
+
+                ArrayList<String> claimsId = new ArrayList<>(Arrays.asList(parts[3].split(",")));
+                ArrayList<Claim> claims = new ArrayList<Claim>();
+                for (String claim : claimsId) {
+                    Claim inputClaim = new Claim();
+                    inputClaim.setId(claim);
+                    claims.add(inputClaim);
                 }
 
-                if (inputDependents != null && !inputDependents.isEmpty()) {
-                }else{
+                String role;
+                if(parts > 4){
 
                 }
+
+
 
                 Customer customer = new Customer();
-                customer.setId(inputId);
-                customer.setFullName(inputFullName);
-                customer.setInsuranceCard(new InsuranceCard());
-//                customer.addClaim();
-
                 customers.add(customer);
-
-
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -177,7 +181,39 @@ public class InsuranceClaimsManagementSystem {
             File file = new File("data/Claim.txt");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                String inputId = parts[0].trim();
+                Date claimDate = null;
+                if (parts[1] != null) {
+                    String claimDateString = parts[1].trim();
+                    try {
+                        claimDate = new SimpleDateFormat("dd-MM-yyyy").parse(claimDateString);
+                    } catch (ParseException e) {
+                        System.out.println("Error: Invalid date format in input: " + claimDateString);
+                        e.printStackTrace();
+                    }
+                }
+                Customer customer = new Customer();
+                customer.setFullName(parts[2]);
+                String inputInsuranceCard = parts[3].trim();
+                Date examDate = null;
+                if (parts[4] != null) {
+                    String examDateString = parts[4].trim();
+                    try {
+                        examDate = new SimpleDateFormat("dd-MM-yyyy").parse(examDateString);
+                    } catch (ParseException e) {
+                        System.out.println("Error: Invalid date format in input: " + examDateString);
+                        e.printStackTrace();
+                    }
+                }
+                ArrayList<String> documents = new ArrayList<>(Arrays.asList(parts[5].split(",")));
+                float claimAmount = Float.parseFloat(parts[6]);
+                String status = parts[7].trim();
+                String receiverBankingInfo = parts[8].trim();
 
+                Claim claim = new Claim(inputId, claimDate, customer, inputInsuranceCard, examDate, documents, claimAmount, status, receiverBankingInfo);
+                claims.add(claim);
             }
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
@@ -186,22 +222,39 @@ public class InsuranceClaimsManagementSystem {
         }
 
         try {
-            File file = new File("data/Insurance.txt");
+            File file = new File("data/InsuranceCard.txt");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                String cardNumber = parts[0].trim();
+                Customer customer = new Customer();
+                customer.setFullName(parts[1]);
+                String inputInsuranceCard = parts[2].trim();
 
+                Date expirationDate = null;
+                if (parts[3] != null) {
+                    String expirationDateString = parts[3].trim();
+                    try {
+                        expirationDate = new SimpleDateFormat("dd-MM-yyyy").parse(expirationDateString);
+                    } catch (ParseException e) {
+                        System.out.println("Error: Invalid date format in input: " + expirationDateString);
+                        e.printStackTrace();
+                    }
+                }
+                InsuranceCard insuranceCard = new InsuranceCard(cardNumber, customer, inputInsuranceCard, expirationDate);
+                insuranceCards.add(insuranceCard);
             }
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-
         }
     }
 
     private void dashboardMenu(String dashboardType){
-        System.out.println("What do you want to do?");
+        System.out.println("\nWhat do you want to do?");
         System.out.println("1. Create a new " + dashboardType);
-        System.out.println("2. Update the + " + dashboardType + " information");
+        System.out.println("2. Update the " + dashboardType + " information");
         System.out.println("3. View the " + dashboardType + " dashboard");
         System.out.println("4. Delete a " + dashboardType);
         System.out.println("5. Go back to the main menu");
@@ -395,32 +448,69 @@ public class InsuranceClaimsManagementSystem {
         String customerId = scanner.next();
     }
 
-    // Add these methods to your InsuranceClaimsManagementSystem class
-
     private void addNewInsurance() {
         System.out.println("You chose to add a new insurance. Please enter the insurance following details below");
-
-        String insuranceId = String.format("i-%010d", insuranceCards.size() + 1); // Generate new insurance ID
-        String insuranceName = readStringInput("Please enter the insurance name");
-        String insuranceType = readStringInput("Please enter the insurance type");
-        String insuranceDescription = readStringInput("Please enter the insurance description");
-
-        InsuranceCard insuranceCard = new InsuranceCard();
-        insuranceCard.setCardNumber(readStringInput("Please enter the insurance card number"));
-        insuranceCard.setCardHolderName(readStringInput("Please enter the insurance card holder name"));
-        insuranceCard.setPolicyOwnerName("RMIT");
-        insuranceCard.setExpirationDate(readDateInput("Please enter the expiration date"));
-
+        String cardNumber = readStringInput("Please enter the card number");
+        Customer cardHolder = readValidCustomerInput("Please enter the customer ID");
+        String policyOwnerName = readStringInput("Please enter the policy owner name");
+        Date expirationDate = readDateInput("Please enter the expiration date");
+        InsuranceCard insuranceCard = new InsuranceCard(cardNumber, cardHolder, policyOwnerName, expirationDate);
         insuranceCards.add(insuranceCard);
         System.out.println("Insurance added successfully.");
     }
 
     private void viewInsuranceDashboard() {
-        // Add code to display the insurance dashboard
+        if(insuranceCards.isEmpty()){
+            System.out.println("No insurance to display.");
+            return;
+        }
+
+        System.out.println("\nInsurance Dashboard:");
+        System.out.println(String.format("%-20s %-40s %-20s %-20s", "Card Number", "Card Holder", "Policy Owner", "Expiration Date"));
+
+        for(InsuranceCard insuranceCard : insuranceCards){
+            System.out.println(String.format("%-20s %-40s %-20s %-20s",
+                    insuranceCard.getCardNumber(),
+                    insuranceCard.getCardHolderName(),
+                    insuranceCard.getPolicyOwnerName(),
+                    new SimpleDateFormat("dd-MM-yyyy").format(insuranceCard.getExpirationDate())));
+        }
     }
     
     private void updateInsuranceDashboard() { 
-        // Add code to update an existing insurance s
+        String insuranceId = readStringInput("Please enter the insurance ID to update");
+        for (InsuranceCard insuranceCard : insuranceCards) {
+            if (insuranceCard.getCardNumber().equals(insuranceId)) {
+                System.out.println("Please choose the criteria you want to update");
+                System.out.println("1. Card Number");
+                System.out.println("2. Card Holder");
+                System.out.println("3. Policy Owner");
+                System.out.println("4. Expiration Date");
+
+                int choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        String cardNumber = readStringInput("Please enter the new card number");
+                        insuranceCard.setCardNumber(cardNumber);
+                        break;
+                    case 2:
+                        Customer cardHolder = readValidCustomerInput("Please enter the customer ID");
+                        insuranceCard.setCardHolderName(cardHolder);
+                        break;
+                    case 3:
+                        String policyOwnerName = readStringInput("Please enter the policy owner name");
+                        insuranceCard.setPolicyOwnerName(policyOwnerName);
+                        break;
+                    case 4:
+                        Date expirationDate = readDateInput("Please enter the expiration date");
+                        insuranceCard.setExpirationDate(expirationDate);
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+                }
+            }
+        }
+        System.out.println("Insurance not found. Please try again.");
     }
 
     private void deleteInsuranceCard() {
@@ -465,16 +555,17 @@ public class InsuranceClaimsManagementSystem {
 
         // Print the header
         System.out.println("\nClaim Dashboard:");
-        System.out.println(String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s", "Claim ID", "Claim Date", "Customer", "Insurance Card", "Exam Date", "Documents", "Claim Amount", "Status", "Bank Info"));
+        System.out.println(String.format("%-15s %-30s %-40s %-20s %-20s %-50s %-20s %-20s %-20s", "Claim ID", "Claim Date", "Customer", "Insurance Card", "Exam Date", "Documents", "Claim Amount", "Status", "Bank Info"));
 
         // Iterate over the claims and print each one
         for (Claim claim : claims) {
-            System.out.println(String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s",
+            System.out.println(String.format("%-15s %-30s %-40s %-20s %-20s %-50s %-20s %-20s %-20s",
                     claim.getId(),
                     new SimpleDateFormat("dd-MM-yyyy").format(claim.getExamDate()),
                     claim.getCustomer(),
                     claim.getInsuranceCardNumber(),
                     new SimpleDateFormat("dd-MM-yyyy").format(claim.getExamDate()),
+                    claim.getDocuments(),
                     claim.getClaimAmount(),
                     claim.getStatus(),
                     claim.getReceiverBankingInfo()));
@@ -525,23 +616,20 @@ public class InsuranceClaimsManagementSystem {
                 }
                 claim.setExamDate(new Date());
                 System.out.println("Claim updated successfully.");
-            }else {
-                System.out.println("Claim not found. Please try again.");
             }
         }
+        System.out.println("Claim not found. Please try again.");
     }
 
     private void deleteClaim() {
         String claimId = readStringInput("Please enter the claim ID to delete");
-
         for (Claim claim : claims) {
             if (claim.getId().equals(claimId)) {
                 claims.remove(claim);
                 System.out.println("Claim deleted successfully.");
                 return;
-            } else {
-                System.out.println("Claim not found. Please try again.");
             }
         }
+        System.out.println("Claim not found. Please try again.");
     }
 }
