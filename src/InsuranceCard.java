@@ -1,8 +1,13 @@
 package src;
 import java.util.Date;
+
 /**
- * This class represents an insurance card,  used to identify a customer's insurance policy.
- * @author <Pham Hoang Duong - S3818206>
+ * This class represents an insurance card, used to identify a customer's insurance policy.
+ * Each card has a 10-digit card number, the name of the card holder, the name of the policy owner, and an expiration date.
+ * The card number must be 10 digits long.
+ * The expiration date must be in the future.
+ *
+ * @author Pham Hoang Duong - S3818206
  * @version 1.0
  */
 public class InsuranceCard {
@@ -11,6 +16,10 @@ public class InsuranceCard {
     private String policyOwnerName; // Name of the policy owner - Could be RMIT
     private Date expirationDate; // Expiration date of the card - must in the future
 
+    /**
+     * Constructor for the InsuranceCard class.
+     * Initializes the cardNumber, cardHolderName, policyOwnerName, and expirationDate.
+     */
     InsuranceCard (){
         this.cardNumber = "n/a";
         this.cardHolderName = "n/a";
@@ -18,10 +27,20 @@ public class InsuranceCard {
         this.expirationDate = new Date();
     }
 
-    public String getCardNumber() { 
-        return cardNumber; 
+    /**
+     * Returns the card number of the insurance card.
+     * @return A string representing the card number.
+     */
+    public String getCardNumber() {
+        return cardNumber;
     }
 
+    /**
+     * Sets the card number of the insurance card.
+     * The card number must be 10 digits long.
+     * @param cardNumber A string containing the new card number.
+     * @throws IllegalArgumentException if the card number is not 10 digits long.
+     */
     public void setCardNumber(String cardNumber) {
         if (cardNumber.length() != 10) {
             throw new IllegalArgumentException("Card number must be 10 digits");
@@ -30,27 +49,52 @@ public class InsuranceCard {
         }
     }
 
-    public String getCardHolderName() { 
-        return this.cardHolderName; 
+    /**
+     * Returns the card holder's name of the insurance card.
+     * @return A string representing the card holder's name.
+     */
+    public String getCardHolderName() {
+        return this.cardHolderName;
     }
 
-    public void setCardHolderName(String cardHolder) { 
-        this.cardHolderName = cardHolder; 
+    /**
+     * Sets the card holder's name of the insurance card.
+     * @param cardHolder A string containing the new card holder's name.
+     */
+    public void setCardHolderName(String cardHolder) {
+        this.cardHolderName = cardHolder;
     }
 
-    public String getPolicyOwnerName() { 
-        return this.policyOwnerName; 
+    /**
+     * Returns the policy owner's name of the insurance card.
+     * @return A string representing the policy owner's name.
+     */
+    public String getPolicyOwnerName() {
+        return this.policyOwnerName;
     }
 
-    public void setPolicyOwnerName(String policyOwner) { 
-        this.policyOwnerName = policyOwner; 
+    /**
+     * Sets the policy owner's name of the insurance card.
+     * @param policyOwner A string containing the new policy owner's name.
+     */
+    public void setPolicyOwnerName(String policyOwner) {
+        this.policyOwnerName = policyOwner;
     }
 
-    public Date getExpirationDate() { 
-        return expirationDate; 
+    /**
+     * Returns the expiration date of the insurance card.
+     * @return A Date object representing the expiration date.
+     */
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) { 
-        this.expirationDate = expirationDate; 
+    /**
+     * Sets the expiration date of the insurance card.
+     * The expiration date must be in the future.
+     * @param expirationDate A Date object containing the new expiration date.
+     */
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 }
