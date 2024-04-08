@@ -161,15 +161,29 @@ public class InsuranceClaimsManagementSystem {
                     claims.add(inputClaim);
                 }
 
-                String role;
-                if(parts > 4){
+                String role = "Policy Holder";
 
+                ArrayList<Customer> dependentList = new ArrayList<Customer>();
+                if(parts.length >= 5){
+                    ArrayList<String> dependentIds = new ArrayList<>(Arrays.asList(parts[4].split(",")));
+                    for (String dependentId : dependentIds) {
+                        Customer dependent = new Customer();
+                        dependent.setId(dependentId);
+                        dependentList.add(dependent);
+                        dependents.add(dependent);
+                    }
                 }
 
-
-
-                Customer customer = new Customer();
+                Customer customer = new Customer(id, fullName, insuranceCard, claims, role, dependentList);
                 customers.add(customer);
+            }
+
+            for (Customer customer : customers ){
+                for (Customer dependent : dependents){
+                    if (customer.getId().equals(dependent.getId())){
+                        customer.setRole("Dependent");
+                    }
+                }
             }
             scanner.close();
         } catch (FileNotFoundException e) {
