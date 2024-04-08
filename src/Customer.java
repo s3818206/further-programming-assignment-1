@@ -85,7 +85,7 @@ public class Customer implements ClaimProcessManager{
         this.role = role;
     }
 
-    public String getRole(String newRole) { this.role = newRole;}
+    public String getRole(String newRole) { return this.role; }
     public void addDependent(Customer dependent) {
         this.dependents.add(dependent);
     }
