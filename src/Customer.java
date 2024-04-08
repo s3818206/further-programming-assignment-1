@@ -43,7 +43,7 @@ public class Customer implements ClaimProcessManager{
 
     public void setInsuranceCard(InsuranceCard insuranceCard) { 
         this.insuranceCard = insuranceCard; 
-    }
+    } 
 
     public void addClaim(Claim claim) {
         this.claims.add(claim);
@@ -80,6 +80,13 @@ public class Customer implements ClaimProcessManager{
     public ArrayList<Claim> getAll() {
         return this.claims;
     }
+    
+    public String getAllClaimsToString(){
+        String result = "";
+        for (Claim claim : this.claims){
+            result += claim.getId() + ",";
+        }
+    }
 
     public void setRole(String role) {
         this.role = role;
@@ -97,5 +104,9 @@ public class Customer implements ClaimProcessManager{
                 break;
             }
         }
+    }
+
+    public void toString(){
+        System.out.println(this.id + " | " + this.fullName + " | " + this.insuranceCard.getId() + " | " + this.claims; + " | " + this.dependents);
     }
 }

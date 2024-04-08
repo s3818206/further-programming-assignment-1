@@ -9,18 +9,18 @@ import java.util.ArrayList;
 public class Claim {
     private String id;
     private Date claimDate;
-    private String insuredPerson;
-    private String cardNumber;
+    private Customer customer;
+    private String insuranceCardNumber;
     private Date examDate;
     private ArrayList<String> documents;
     private float claimAmount;
-    private String status;
+    private String status;  // New, Done, Process
     private String receiverBankingInfo;
 
     Claim (){
         this.id = "";
         this.claimDate = new Date();
-        this.insuredPerson = "";
+        this.insuredPerson = new Customer();
         this.cardNumber = "";
         this.examDate = new Date();
         this.documents = null;

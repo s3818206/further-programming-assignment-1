@@ -56,21 +56,16 @@ public class InsuranceClaimsManagementSystem {
                         int customerDashboardChoice = scanner.nextInt();
                         switch(customerDashboardChoice) {
                             case 1:
-                                addNewCustomer();
+                                this.addNewCustomer();
                                 break;
                             case 2:
-                                System.out.println("You chose to update customer information.");
-                                System.out.println("Please enter the customer ID to update: ");
-                                String customerId = scanner.next();
+                                this.updateCustomerDashboard();
                                 break;
                             case 3:
-                                System.out.println("You chose to view the customer dashboard.");
-                                // Show the customer dashboard
+                                this.viewCustomerDashboard();
                                 break;
                             case 4:
-                                System.out.println("You chose to delete a customer.");
-                                System.out.println("Please enter the customer ID to update: ");
-
+                                this.deleteCustomer();
                                 break;
                             case 5:
                                 System.out.println("Going back to the main menu");
@@ -276,6 +271,66 @@ public class InsuranceClaimsManagementSystem {
             System.out.println("Invalid input. Please enter Y or N");
         }
     }
+
+    private void viewCustomerDashboard(){
+        System.out.println("You chose to view the customer dashboard.");
+    
+        // Show the customer dashboard
+    }
+
+    private void updateCustomerDashboard(){
+        System.out.println("You chose to update the customer information.");
+        System.out.println("Please enter the customer ID to update: ");
+        String customerId = scanner.next();
+    }
+
+    private void deleteCustomer(){
+        System.out.println("You chose to delete a customer.");
+        System.out.println("Please enter the customer ID to delete: ");
+        String customerId = scanner.next();
+    }
+
+    // Add these methods to your InsuranceClaimsManagementSystem class
+
+    private void addNewInsurance() {
+        // Add code to create a new insurance and add it to the insuranceCards list
+    }
+
+    private void viewInsuranceDashboard() {
+        // Add code to display the insurance dashboard
+    }
+    
+    private void updateInsuranceDashboard() { 
+        // Add code to update an existing insurance s
+    }
+
+    private void deleteInsurance() {
+        // Add code to delete an insurance from the insuranceCards list
+    }
+
+    private void addNewClaim() {
+        // Add code to create a new claim and add it to the claims list
+    }
+
+    private void viewClaimDashboard() {
+        // Add code to display the claim dashboard
+    }
+
+    private void updateClaimDashboard() {
+        // Add code to update an existing claim
+    }
+
+    private void deleteClaim() {
+        // Add code to delete a claim from the claims list
+    }
+
+// Add this to your main method
+public static void main(String[] args) {
+    InsuranceClaimsManagementSystem system = new InsuranceClaimsManagementSystem();
+    system.run();
+}
+
+
 
     public void main(String[] args) {
 
